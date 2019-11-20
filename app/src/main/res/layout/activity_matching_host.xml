@@ -6,10 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".MatchingHostActivity">
 
-    <EditText
-        android:id="@+id/tempEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="25" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="#ffffff"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:text="ぬるカラオケ" />
+
+        <LinearLayout
+            android:id="@+id/target"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            >
+            <TextView
+                android:id="@+id/menu_home"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#1b2538"
+                android:textColor="#ffffff"
+                android:text="ホーム" />
+            <TextView
+                android:id="@+id/menu_myList"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#1b2538"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="1dp"
+                android:text="曲の閲覧" />
+            <TextView
+                android:id="@+id/menu_addList"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#1b2538"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="1dp"
+                android:text="曲の追加" />
+            <TextView
+                android:id="@+id/menu_matching"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#1b2538"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="1dp"
+                android:text="マッチング" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="#1b2538"
+                android:layout_marginLeft="1dp"
+                android:gravity="center_horizontal|center_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:gravity="center_horizontal">
+            <EditText
+                android:id="@+id/tempEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/footer_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:background="#1b2538"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:layout_marginTop="40dp"
+            android:text="Copyright© 2019 ぬるんちゅ All Rights Reserved." />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
