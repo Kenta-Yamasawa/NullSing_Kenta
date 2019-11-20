@@ -69,37 +69,28 @@
                 android:gravity="center_horizontal|center_vertical" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            android:background="#ffffff"
-            android:textColor="#000000"
-            android:textSize="24dp"
-            android:layout_margin="20dp"
-            android:text="秘密の合言葉を入力してください" />
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="22dp">
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:ems="13"
-                android:inputType="textPersonName"
-                android:hint="入力してください"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:gravity="center_horizontal">
             <TextView
+                android:id="@+id/button_matching_host"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:background="#1b2538"
                 android:textColor="#ffffff"
-                android:text="GO!" />
+                android:text="Host"/>
+            <TextView
+                android:id="@+id/button_matching_client"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#1b2538"
+                android:textColor="#ffffff"
+                android:text="Client" />
         </LinearLayout>
 
         <TextView
