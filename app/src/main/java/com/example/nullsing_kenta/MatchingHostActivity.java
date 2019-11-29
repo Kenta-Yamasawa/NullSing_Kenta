@@ -2,21 +2,25 @@ package com.example.nullsing_kenta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
-public class MatchingHostActivity extends AppCompatActivity {
+public class MatchingHostActivity extends Activity {
 
     static final String TAG = "BTTest1S";
 
@@ -29,6 +33,20 @@ public class MatchingHostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
+
+        TextView menu_home = (TextView)findViewById(R.id.menu_home);
+        menu_home.setOnClickListener(new MatchingHostActivity.MenuHomeOnClickListener());
+
+        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
+        menu_mylist.setOnClickListener(new MatchingHostActivity.MenuMyListOnClickListener());
+
+        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        menu_addlist.setOnClickListener(new MatchingHostActivity.MenuAddListOnClickListener());
+
+
+        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
+        menu_mathcing.setOnClickListener(new MatchingHostActivity.MenuMathcingOnClickListener());
+
         tempEditText = (EditText) findViewById(R.id.tempEditText);
         tempEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -182,4 +200,45 @@ public class MatchingHostActivity extends AppCompatActivity {
             return resp;
         }
     }
+
+    private class MenuHomeOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingHostActivity.this, MainActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuMyListOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingHostActivity.this, MyListActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuAddListOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingHostActivity.this, AddListActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuMathcingOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingHostActivity.this, MathcingActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
 }

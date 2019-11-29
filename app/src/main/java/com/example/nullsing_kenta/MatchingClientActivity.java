@@ -2,13 +2,16 @@ package com.example.nullsing_kenta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -17,7 +20,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
-public class MatchingClientActivity extends AppCompatActivity {
+public class MatchingClientActivity extends Activity {
 
     static final String TAG = "BTTEST1";
     BluetoothAdapter bluetoothAdapter;
@@ -55,6 +58,19 @@ public class MatchingClientActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_client);
+
+        TextView menu_home = (TextView)findViewById(R.id.menu_home);
+        menu_home.setOnClickListener(new MatchingClientActivity.MenuHomeOnClickListener());
+
+        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
+        menu_mylist.setOnClickListener(new MatchingClientActivity.MenuMyListOnClickListener());
+
+        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        menu_addlist.setOnClickListener(new MatchingClientActivity.MenuAddListOnClickListener());
+
+
+        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
+        menu_mathcing.setOnClickListener(new MatchingClientActivity.MenuMathcingOnClickListener());
 
         // Find Views
         btStatusTextView = (TextView) findViewById(R.id.btStatusTextView);
@@ -198,6 +214,46 @@ public class MatchingClientActivity extends AppCompatActivity {
                     Constants.MESSAGE_BT,
                     "DISCONNECTED - Exit BTClientThread")
                     .sendToTarget();
+        }
+    }
+
+    private class MenuHomeOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingClientActivity.this, MainActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuMyListOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingClientActivity.this, MyListActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuAddListOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingClientActivity.this, AddListActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuMathcingOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingClientActivity.this, MathcingActivity.class);
+            // Activityの移動
+            startActivity(intent);
         }
     }
 

@@ -25,6 +25,14 @@ public class MathcingActivity extends Activity {
 
         TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
         menu_addlist.setOnClickListener(new MathcingActivity.MenuAddListOnClickListener());
+
+        TextView button_matching_host = (TextView)findViewById(R.id.button_matching_host);
+        button_matching_host.setOnClickListener(new MathcingActivity.ButtonMatchingHostOnClickListener());
+
+        TextView button_matching_client = (TextView)findViewById(R.id.button_matching_client);
+        button_matching_client.setOnClickListener(new MathcingActivity.ButtonMatchingClientOnClickListener());
+
+        
     }
 
     private class MenuHomeOnClickListener implements View.OnClickListener {
@@ -57,5 +65,24 @@ public class MathcingActivity extends Activity {
         }
     }
 
+    private class ButtonMatchingHostOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MathcingActivity.this, MatchingHostActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class ButtonMatchingClientOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MathcingActivity.this, MatchingClientActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
 
 }
