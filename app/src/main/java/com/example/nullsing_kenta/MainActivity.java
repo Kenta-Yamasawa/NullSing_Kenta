@@ -3,6 +3,7 @@ package com.example.nullsing_kenta;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MyOpenHelper helper = new MyOpenHelper(this);
+        final SQLiteDatabase db = helper.getWritableDatabase();
+        db.close();
 
         TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
         menu_mylist.setOnClickListener(new MenuMyListOnClickListener());
