@@ -75,6 +75,7 @@ public class MatchingClientActivity extends Activity {
         // Find Views
         btStatusTextView = (TextView) findViewById(R.id.btStatusTextView);
         tempTextView = (TextView) findViewById(R.id.tempTextView);
+        tempTextView.setOnClickListener(new MatchingClientActivity.MatchingPasswordOnClickListener());
 
         if(savedInstanceState != null){
             String temp = savedInstanceState.getString(Constants.STATE_TEMP);
@@ -252,6 +253,16 @@ public class MatchingClientActivity extends Activity {
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
             Intent intent = new Intent(MatchingClientActivity.this, MathcingActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MatchingPasswordOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MatchingClientActivity.this, ResultActivity.class);
             // Activityの移動
             startActivity(intent);
         }

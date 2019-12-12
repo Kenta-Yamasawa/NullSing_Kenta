@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyListActivity">
+    tools:context=".ResultActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,15 +30,38 @@
             android:layout_weight="7"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/trigger"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal|center_vertical"
-                android:background="#ffffff"
-                android:textColor="#000000"
-                android:textSize="24dp"
-                android:layout_margin="20dp"
-                android:text="あなたの登録した曲はこちらです" />
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:background="#ffffff"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:layout_margin="20dp"
+                    android:text="二人が知っている曲はこちらです" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:background="#ffffff"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:text="Lemon/米津玄師" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:background="#ffffff"
+                    android:textColor="#000000"
+                    android:textSize="24dp"
+                    android:text="マリーゴールド/あいみょん" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -141,4 +164,5 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

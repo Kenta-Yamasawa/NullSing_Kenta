@@ -29,8 +29,15 @@ public class MatchingHostActivity extends Activity {
     EditText tempEditText;
     BTServerThread btServerThread;
 
+    boolean isCommunicationFinished;
+    boolean isFirstCommunicationFinished;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        isCommunicationFinished = false;
+        isFirstCommunicationFinished = false;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
 
@@ -144,8 +151,19 @@ public class MatchingHostActivity extends Activity {
 
                             String resp = processCommand(cmd);
                             outputStream.write(resp.getBytes());
-                        }
 
+                            if (!resp.equals("OK")) {
+                                if(!isCommunicationFinished) isFirstCommunicationFinished = true;
+                                else isFirstCommunicationFinished = false;
+                                isCommunicationFinished = true;
+                                if(isFirstCommunicationFinished) {
+                                    // 引数1：自身のActivity、引数2:移動先のActivity名
+                                    Intent intent = new Intent(MatchingHostActivity.this, ResultActivity.class);
+                                    // Activityの移動
+                                    startActivity(intent);
+                                }
+                            }
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
