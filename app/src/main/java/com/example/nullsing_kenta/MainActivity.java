@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
@@ -22,13 +23,16 @@ public class MainActivity extends Activity {
         final SQLiteDatabase db = helper.getWritableDatabase();
         db.close();
 
-        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
+        LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
+        menu_mylist.setClickable(true);
         menu_mylist.setOnClickListener(new MenuMyListOnClickListener());
 
-        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+        menu_mylist.setClickable(true);
         menu_addlist.setOnClickListener(new MenuAddListOnClickListener());
 
-        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
+        LinearLayout menu_mathcing = (LinearLayout)findViewById(R.id.menu_matching_l);
+        menu_mylist.setClickable(true);
         menu_mathcing.setOnClickListener(new MenuMathcingOnClickListener());
 
         TextView menu_addlist2 = (TextView)findViewById(R.id.menu_addList2);
@@ -62,7 +66,7 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MainActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MainActivity.this, MatchingTypeSelectActivity.class);
             // Activityの移動
             startActivity(intent);
         }

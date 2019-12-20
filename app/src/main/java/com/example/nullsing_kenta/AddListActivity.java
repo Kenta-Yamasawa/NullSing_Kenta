@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
@@ -35,7 +36,15 @@ public class AddListActivity extends Activity {
         } catch (Exception e) {
         }
 
-        TextView menu_home = (TextView)findViewById(R.id.menu_home);
+        LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
+        menu_home.setClickable(true);
+        LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
+        menu_mylist.setClickable(true);
+        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+        menu_addlist.setClickable(true);
+
+        LinearLayout menu_mathcing = (LinearLayout)findViewById(R.id.menu_matching_l);
+        menu_mathcing.setClickable(true);
         menu_home.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +55,6 @@ public class AddListActivity extends Activity {
             }
         });
 
-        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
         menu_mylist.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,13 +65,12 @@ public class AddListActivity extends Activity {
             }
         });
 
-        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
         menu_mathcing.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.close();
 
-                Intent intent = new Intent(AddListActivity.this, MathcingActivity.class);
+                Intent intent = new Intent(AddListActivity.this, MatchingTypeSelectActivity.class);
                 startActivity(intent);
             }
         });

@@ -26,13 +26,17 @@ public class MyListActivity extends Activity {
         MyOpenHelper helper = new MyOpenHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        TextView menu_home = (TextView)findViewById(R.id.menu_home);
-        menu_home.setOnClickListener(new MenuHomeOnClickListener());
 
-        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
+        menu_home.setClickable(true);
+        menu_home.setOnClickListener(new MyListActivity.MenuHomeOnClickListener());
+
+        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+        menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MyListActivity.MenuAddListOnClickListener());
 
-        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
+        LinearLayout menu_mathcing = (LinearLayout)findViewById(R.id.menu_matching_l);
+        menu_mathcing.setClickable(true);
         menu_mathcing.setOnClickListener(new MyListActivity.MenuMathcingOnClickListener());
 
         Cursor c = db.query("MySing", new String[] { "title", "singer" }, null,
@@ -79,7 +83,7 @@ public class MyListActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MyListActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MyListActivity.this, MatchingTypeSelectActivity.class);
             // Activityの移動
             startActivity(intent);
         }

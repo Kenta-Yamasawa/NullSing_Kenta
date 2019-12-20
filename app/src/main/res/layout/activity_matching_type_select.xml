@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    tools:context=".MatchingTypeSelectActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,43 +30,50 @@
             android:layout_weight="7"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="40dp"
+                android:text="ホストかクライアントか選択してください"/>
+
             <LinearLayout
-                android:id="@+id/trigger"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:paddingTop="40dp"
+                android:gravity="center_horizontal">
                 <TextView
-                    android:id="@+id/text_result_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/button_matching_type_title"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="5"
                     android:gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:layout_margin="20dp"
-                    android:text="二人が知っている曲はこちらです" />
+                    android:background="#1b2538"
+                    android:textColor="#ffffff"
+                    android:text="曲名"/>
                 <TextView
-                    android:id="@+id/text_matched_item_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/button_matching_type_artist"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="5"
                     android:gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:text="Lemon/米津玄師" />
+                    android:background="#1b2538"
+                    android:textColor="#ffffff"
+                    android:text="アーティスト" />
                 <TextView
-                    android:id="@+id/text_matched_item_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/button_matching_type_genre"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="5"
                     android:gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:text="マリーゴールド/あいみょん" />
+                    android:background="#1b2538"
+                    android:textColor="#ffffff"
+                    android:text="ジャンル" />
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/target"
             android:layout_width="match_parent"
@@ -170,5 +177,6 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

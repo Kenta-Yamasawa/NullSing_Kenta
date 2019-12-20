@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 public class MatchingHostActivity extends Activity {
+
+    String matchingType;
 
     static final String TAG = "BTTest1S";
 
@@ -41,18 +44,23 @@ public class MatchingHostActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
 
-        TextView menu_home = (TextView)findViewById(R.id.menu_home);
+        Intent intent = this.getIntent();
+        matchingType = intent.getStringExtra("matchingType");
+        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
+        textView.setText(matchingType);
+        intent.putExtra("matchingType", matchingType);
+
+        LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
+        menu_home.setClickable(true);
         menu_home.setOnClickListener(new MatchingHostActivity.MenuHomeOnClickListener());
 
-        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
+        LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
+        menu_mylist.setClickable(true);
         menu_mylist.setOnClickListener(new MatchingHostActivity.MenuMyListOnClickListener());
 
-        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+        menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MatchingHostActivity.MenuAddListOnClickListener());
-
-
-        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
-        menu_mathcing.setOnClickListener(new MatchingHostActivity.MenuMathcingOnClickListener());
 
         tempEditText = (EditText) findViewById(R.id.tempEditText);
         tempEditText.addTextChangedListener(new TextWatcher() {
@@ -159,6 +167,7 @@ public class MatchingHostActivity extends Activity {
                                 if(isFirstCommunicationFinished) {
                                     // 引数1：自身のActivity、引数2:移動先のActivity名
                                     Intent intent = new Intent(MatchingHostActivity.this, ResultActivity.class);
+                                    intent.putExtra("matchingType", matchingType);
                                     // Activityの移動
                                     startActivity(intent);
                                 }

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 public class MatchingClientActivity extends Activity {
+
+    String matchingType;
 
     static final String TAG = "BTTEST1";
     BluetoothAdapter bluetoothAdapter;
@@ -59,18 +62,22 @@ public class MatchingClientActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_client);
 
-        TextView menu_home = (TextView)findViewById(R.id.menu_home);
+        Intent intent = this.getIntent();
+        matchingType = intent.getStringExtra("matchingType");
+        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
+        textView.setText(matchingType);
+
+        LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
+        menu_home.setClickable(true);
         menu_home.setOnClickListener(new MatchingClientActivity.MenuHomeOnClickListener());
 
-        TextView menu_mylist = (TextView)findViewById(R.id.menu_myList);
+        LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
+        menu_mylist.setClickable(true);
         menu_mylist.setOnClickListener(new MatchingClientActivity.MenuMyListOnClickListener());
 
-        TextView menu_addlist = (TextView)findViewById(R.id.menu_addList);
+        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+        menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MatchingClientActivity.MenuAddListOnClickListener());
-
-
-        TextView menu_mathcing = (TextView)findViewById(R.id.menu_matching);
-        menu_mathcing.setOnClickListener(new MatchingClientActivity.MenuMathcingOnClickListener());
 
         // Find Views
         btStatusTextView = (TextView) findViewById(R.id.btStatusTextView);
@@ -263,6 +270,7 @@ public class MatchingClientActivity extends Activity {
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
             Intent intent = new Intent(MatchingClientActivity.this, ResultActivity.class);
+            intent.putExtra("matchingType", matchingType);
             // Activityの移動
             startActivity(intent);
         }
