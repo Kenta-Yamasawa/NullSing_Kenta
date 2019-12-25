@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
 
         MyOpenHelper helper = new MyOpenHelper(this);
         final SQLiteDatabase db = helper.getWritableDatabase();
-        db.close();
 
         LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
         menu_mylist.setClickable(true);
