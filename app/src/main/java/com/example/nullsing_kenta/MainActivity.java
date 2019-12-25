@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity {
     @Override
@@ -25,50 +26,74 @@ public class MainActivity extends Activity {
 
         LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
         menu_mylist.setClickable(true);
-        menu_mylist.setOnClickListener(new MenuMyListOnClickListener());
+        menu_mylist.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.close();
 
-        LinearLayout menu_addlist = (LinearLayout)findViewById(R.id.menu_addList_l);
+                // 引数1：自身のActivity、引数2:移動先のActivity名
+                Intent intent = new Intent(MainActivity.this, MyListActivity.class);
+                // Activityの移動
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout menu_addlist = (LinearLayout) findViewById(R.id.menu_addList_l);
         menu_mylist.setClickable(true);
-        menu_addlist.setOnClickListener(new MenuAddListOnClickListener());
+        menu_addlist.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.close();
 
-        LinearLayout menu_mathcing = (LinearLayout)findViewById(R.id.menu_matching_l);
+                // 引数1：自身のActivity、引数2:移動先のActivity名
+                Intent intent = new Intent(MainActivity.this, AddListActivity.class);
+                // Activityの移動
+                startActivity(intent);
+            }
+        });
+
+        LinearLayout menu_mathcing = (LinearLayout) findViewById(R.id.menu_matching_l);
         menu_mylist.setClickable(true);
-        menu_mathcing.setOnClickListener(new MenuMathcingOnClickListener());
+        menu_mathcing.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.close();
 
-        TextView menu_addlist2 = (TextView)findViewById(R.id.menu_addList2);
-        menu_addlist2.setOnClickListener(new MenuAddListOnClickListener());
+                // 引数1：自身のActivity、引数2:移動先のActivity名
+                Intent intent = new Intent(MainActivity.this, MatchingTypeSelectActivity.class);
+                // Activityの移動
+                startActivity(intent);
+            }
+        });
 
-        TextView menu_mathcing2 = (TextView)findViewById(R.id.menu_matching2);
-        menu_mathcing2.setOnClickListener(new MenuMathcingOnClickListener());
-    }
+        TextView menu_addlist2 = (TextView) findViewById(R.id.menu_addList2);
+        menu_addlist2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    db.execSQL("DELETE FROM MySing;");
+                } catch (Exception e) {
+                }
+                db.close();
 
-    private class MenuMyListOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MainActivity.this, MyListActivity.class);
-            // Activityの移動
-            startActivity(intent);
-        }
-    }
+                // 引数1：自身のActivity、引数2:移動先のActivity名
+                Intent intent = new Intent(MainActivity.this, AddListActivity.class);
+                // Activityの移動
+                startActivity(intent);
+            }
+        });
 
-    private class MenuAddListOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MainActivity.this, AddListActivity.class);
-            // Activityの移動
-            startActivity(intent);
-        }
-    }
+        TextView menu_mathcing2 = (TextView) findViewById(R.id.menu_matching2);
+        menu_mathcing2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.close();
 
-    private class MenuMathcingOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MainActivity.this, MatchingTypeSelectActivity.class);
-            // Activityの移動
-            startActivity(intent);
-        }
+                // 引数1：自身のActivity、引数2:移動先のActivity名
+                Intent intent = new Intent(MainActivity.this, MatchingTypeSelectActivity.class);
+                // Activityの移動
+                startActivity(intent);
+            }
+        });
     }
 }

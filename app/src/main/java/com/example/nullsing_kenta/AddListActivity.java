@@ -31,11 +31,6 @@ public class AddListActivity extends Activity {
         MyOpenHelper helper = new MyOpenHelper(this);
         final SQLiteDatabase db = helper.getWritableDatabase();
 
-        try {
-            db.execSQL("DELETE FROM MySing;");
-        } catch (Exception e) {
-        }
-
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
         LinearLayout menu_mylist = (LinearLayout) findViewById(R.id.menu_myList_l);
