@@ -1,5 +1,9 @@
 package com.example.nullsing_kenta;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,17 +21,25 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import android.util.Log;
 
 public class AddListActivity extends Activity {
-    Boolean chkbox0_flag = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addlist);
-
-        MyOpenHelper helper = new MyOpenHelper(this);
-        final SQLiteDatabase db = helper.getWritableDatabase();
 
         final EditText titleText = (EditText) findViewById(R.id.titleText);
         final EditText singerText = (EditText) findViewById(R.id.singerText);
@@ -45,8 +57,6 @@ public class AddListActivity extends Activity {
         menu_home.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.close();
-
                 Intent intent = new Intent(AddListActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -55,8 +65,6 @@ public class AddListActivity extends Activity {
         menu_mylist.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.close();
-
                 Intent intent = new Intent(AddListActivity.this, MyListActivity.class);
                 startActivity(intent);
             }
@@ -65,8 +73,6 @@ public class AddListActivity extends Activity {
         menu_mathcing.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.close();
-
                 Intent intent = new Intent(AddListActivity.this, MatchingTypeSelectActivity.class);
                 startActivity(intent);
             }
@@ -76,16 +82,17 @@ public class AddListActivity extends Activity {
         addButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.close();
-
                 SpannableStringBuilder sb = (SpannableStringBuilder)titleText.getText();
                 String str_title = sb.toString();
                 sb = (SpannableStringBuilder)singerText.getText();
-                String singer_title = sb.toString();
+                String str_singer = sb.toString();
                 sb = (SpannableStringBuilder)genreText.getText();
-                String genre_title = sb.toString();
+                String str_genre = sb.toString();
 
-                Intent intent = new Intent(AddListActivity.this, MyListActivity.class);
+                Intent intent = new Intent(AddListActivity.this, AddList2Activity.class);
+                intent.putExtra("title", str_title);
+                intent.putExtra("artist", str_singer);
+                intent.putExtra("genre", str_genre);
                 startActivity(intent);
             }
         });
