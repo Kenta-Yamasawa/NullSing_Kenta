@@ -12,7 +12,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table MySing(id integer PRIMARY KEY, title text, singer text, UNIQUE(title, singer));");
+        db.execSQL("create table MySing(id integer PRIMARY KEY, title text, singer text, genre text, UNIQUE(title, singer));");
     }
 
     @Override

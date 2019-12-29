@@ -30,7 +30,8 @@ public class MatchingTypeSelectActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            // Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MatchingTypeSelectActivity.this, ResultActivity.class);
             intent.putExtra("matchingType","title");
             // Activityの移動
             startActivity(intent);
@@ -41,7 +42,8 @@ public class MatchingTypeSelectActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            // Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MatchingTypeSelectActivity.this, ResultActivity.class);
             intent.putExtra("matchingType","artist");
             // Activityの移動
             startActivity(intent);
@@ -52,7 +54,8 @@ public class MatchingTypeSelectActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            // Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MatchingTypeSelectActivity.this, ResultActivity.class);
             intent.putExtra("matchingType","genre");
             // Activityの移動
             startActivity(intent);

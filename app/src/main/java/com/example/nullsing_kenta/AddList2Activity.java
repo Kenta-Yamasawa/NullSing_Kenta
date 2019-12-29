@@ -47,61 +47,87 @@ public class AddList2Activity extends Activity {
         String str_artist = intent.getStringExtra("artist");
         String str_genre = intent.getStringExtra("genre");
 
+        JSONObject jsonObject = null;
+        if (str_title.equals("") && str_artist.equals("") && str_genre.equals("")) {
+            jsonObject = null;
+        }
+        else {
+            jsonObject = new JSONObject();
+            try {
+                if (!str_title.equals("")) {
+                    jsonObject.put("title", str_title);
+                }
+                if (!str_artist.equals("")) {
+                    jsonObject.put("artist", str_artist);
+                }
+                if (!str_genre.equals("")) {
+                    jsonObject.put("genre", str_genre);
+                }
+
+                Log.d("テストだよ", jsonObject.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+                jsonObject = null;
+            }
+        }
+
         MyOpenHelper helper = new MyOpenHelper(this);
         final SQLiteDatabase db = helper.getWritableDatabase();
 
-        requestQueue = Volley.newRequestQueue(this);
+        if (jsonObject != null) {
+            requestQueue = Volley.newRequestQueue(this);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Method.GET,
-                URL,
-                null,
-                new Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // Jsonをパースする
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject obj = response.getJSONObject(i);
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                    Method.POST,
+                    URL,
+                    jsonObject,
+                    new Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            // Jsonをパースする
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    JSONObject obj = response.getJSONObject(i);
 
-                                String id = obj.getString("id");
-                                String title = obj.getString("title");
-                                String artist = obj.getString("artist");
-                                String genre = obj.getString("genre");
+                                    String id = obj.getString("id");
+                                    String title = obj.getString("title");
+                                    String artist = obj.getString("artist");
+                                    String genre = obj.getString("genre");
 
-                                JSONsong song = new JSONsong();
-                                song.set_id(Integer.parseInt(id));
-                                song.set_title(title);
-                                song.set_artist(artist);
-                                song.set_genre(genre);
-                                json_songs.add(song);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                    JSONsong song = new JSONsong();
+                                    song.set_id(Integer.parseInt(id));
+                                    song.set_title(title);
+                                    song.set_artist(artist);
+                                    song.set_genre(genre);
+                                    json_songs.add(song);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            LinearLayout songsList = (LinearLayout) findViewById(R.id.songs);
+                            for (int i = 0; i < json_songs.size(); i++) {
+                                CheckBox chkbox = new CheckBox(getApplicationContext());
+                                chkbox.setText(json_songs.get(i).get_title() + "/" + json_songs.get(i).get_artist());
+                                chkbox.setId(i);
+                                songsList.addView(chkbox, new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT));
                             }
                         }
-
-                        LinearLayout songsList = (LinearLayout) findViewById(R.id.songs);
-                        for(int i = 0; i < json_songs.size(); i++) {
-                            CheckBox chkbox = new CheckBox(getApplicationContext());
-                            chkbox.setText(json_songs.get(i).get_title() + "/" + json_songs.get(i).get_artist());
-                            chkbox.setId(i);
-                            songsList.addView(chkbox, new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-        );
+            );
 
-        requestQueue.add(jsonArrayRequest);
+            requestQueue.add(jsonArrayRequest);
 
-        requestQueue.start();
+            requestQueue.start();
+        }
 
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
@@ -132,6 +158,16 @@ public class AddList2Activity extends Activity {
             }
         });
 
+        menu_addlist.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.close();
+
+                Intent intent = new Intent(AddList2Activity.this, AddListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         menu_mathcing.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,10 +191,10 @@ public class AddList2Activity extends Activity {
                         int id = json_songs.get(i).get_id();
                         String title = json_songs.get(i).get_title();
                         String artist = json_songs.get(i).get_artist();
-                        // String genre = json_songs.get(i).get_genre();
+                        String genre = json_songs.get(i).get_genre();
 
                         try {
-                            db.execSQL("INSERT INTO MySing VALUES(" + id + ", '" + title + "', '" + artist + "');");
+                            db.execSQL("INSERT INTO MySing VALUES(" + id + ", '" + title + "', '" + artist + "', '" + genre + "');");
                         } catch (Exception e) {
                         }
                     }
