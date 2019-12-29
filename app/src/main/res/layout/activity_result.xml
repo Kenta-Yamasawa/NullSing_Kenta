@@ -46,24 +46,6 @@
                     android:textSize="24dp"
                     android:layout_margin="20dp"
                     android:text="二人が知っている曲はこちらです" />
-                <TextView
-                    android:id="@+id/text_matched_item_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:text="Lemon/米津玄師" />
-                <TextView
-                    android:id="@+id/text_matched_item_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:textColor="#000000"
-                    android:textSize="24dp"
-                    android:text="マリーゴールド/あいみょん" />
             </LinearLayout>
 
         </LinearLayout>

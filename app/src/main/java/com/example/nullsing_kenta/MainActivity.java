@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
                 db.close();
 
                 // 引数1：自身のActivity、引数2:移動先のActivity名
-                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                Intent intent = new Intent(MainActivity.this, MatchingTypeSelectActivity.class);
                 // Activityの移動
                 startActivity(intent);
             }

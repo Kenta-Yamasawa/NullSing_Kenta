@@ -26,7 +26,6 @@ public class MyListActivity extends Activity {
         MyOpenHelper helper = new MyOpenHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
         menu_home.setOnClickListener(new MyListActivity.MenuHomeOnClickListener());
@@ -39,7 +38,7 @@ public class MyListActivity extends Activity {
         menu_mathcing.setClickable(true);
         menu_mathcing.setOnClickListener(new MyListActivity.MenuMathcingOnClickListener());
 
-        Cursor c = db.query("MySing", new String[] { "title", "singer" }, null,
+        Cursor c = db.query("MySing", new String[] { "title", "singer", "genre" }, null,
                 null, null, null, null);
 
         LinearLayout trigger = (LinearLayout) findViewById(R.id.trigger);
@@ -51,7 +50,7 @@ public class MyListActivity extends Activity {
             textView.setPadding(0, 0, 0, 5);
             textView.setTextColor(Color.BLACK);
             textView.setTextSize(15);
-            textView.setText(String.format("%s / %s", c.getString(0), c.getString(1)));
+            textView.setText(String.format("%s / %s (%s)", c.getString(0), c.getString(1), c.getString(2)));
             mov = c.moveToNext();
             trigger.addView(textView);
         }

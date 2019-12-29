@@ -24,7 +24,7 @@ public class JSONsong {
     }
 
     public void set_genre(String val) {
-        genre = genre;
+        genre = val;
     }
 
     public int get_id() {

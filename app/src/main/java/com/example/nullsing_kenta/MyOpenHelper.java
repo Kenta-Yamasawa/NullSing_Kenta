@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper {
 
     public MyOpenHelper(Context context) {
-        super(context, "FavoriteSingDB", null, 1);
+        super(context, "FavoriteSingDB", null, 2);
     }
 
     @Override
@@ -17,7 +17,9 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS MySing");
 
+        onCreate(db);
     }
 
 }
