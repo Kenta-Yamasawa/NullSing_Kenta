@@ -62,8 +62,6 @@ public class ResultActivity extends Activity {
         c.close();
         db.close();
 
-        Log.d("テストだよ", "ここまで");
-
         List<String> myHashedTitleList = new ArrayList<String>(new LinkedHashSet<>(myTitleList));
         List<String> myHashedArtistList = new ArrayList<String>(new LinkedHashSet<>(myArtistList));
         List<String> myHashedGenreList = new ArrayList<String>(new LinkedHashSet<>(myGenreList));
@@ -72,6 +70,11 @@ public class ResultActivity extends Activity {
         ArrayList<String> yourArtistList = new ArrayList<String>();
         ArrayList<String> yourGenreList = new ArrayList<String>();
 
+        // TODO -ここから- yourTitleList, yourArtistList, yourGenreListにそれぞれaddしてください（重複可)
+        //                  ただし、titleは"曲名/アーティスト名"のフォーマットでお願いします。
+        //                  上でyourTitleList, yourArtistList, yourGenreLIstにaddしてるので参考にしてください。
+
+        // 下はテスト用にデータを手動でリストに追加しています。消してください。
         yourTitleList.add("title1/artist1");
         yourArtistList.add("artist1");
         yourGenreList.add("雅楽");
@@ -91,6 +94,8 @@ public class ResultActivity extends Activity {
         yourTitleList.add("title1/artist1");
         yourArtistList.add("back number");
         yourGenreList.add("ジャンル例");
+
+        // -ここまで-
 
         ArrayList<String> yourHashedTitleList = new ArrayList<String>(new LinkedHashSet<>(yourTitleList));
         ArrayList<String> yourHashedArtistList = new ArrayList<String>(new LinkedHashSet<>(yourArtistList));
