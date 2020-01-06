@@ -126,7 +126,7 @@ public class MatchingClientActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64];
+            byte[] incomingBuff = new byte[64000];
 
             BluetoothDevice bluetoothDevice = null;
             Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
@@ -184,6 +184,14 @@ public class MatchingClientActivity extends Activity {
                                     Constants.MESSAGE_TEMP,
                                     s)
                                     .sendToTarget();
+
+                            //受信データが有効なときは遷移
+                            if(s.startsWith("success")) {
+                                Intent intent = new Intent(MatchingClientActivity.this, ResultActivity.class);
+                                intent.putExtra("matchingType", matchingType);
+                                // Activityの移動
+                                startActivity(intent);
+                            }
 
                             // Update again in a few seconds
                             Thread.sleep(3000);

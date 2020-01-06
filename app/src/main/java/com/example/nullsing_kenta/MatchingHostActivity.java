@@ -32,14 +32,12 @@ public class MatchingHostActivity extends Activity {
     EditText tempEditText;
     BTServerThread btServerThread;
 
-    boolean isCommunicationFinished;
-    boolean isFirstCommunicationFinished;
+    static int communicationState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        isCommunicationFinished = false;
-        isFirstCommunicationFinished = false;
+        communicationState = 0;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
@@ -123,7 +121,7 @@ public class MatchingHostActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64];
+            byte[] incomingBuff = new byte[64000];
 
             try {
                 while (true) {
@@ -158,13 +156,13 @@ public class MatchingHostActivity extends Activity {
                             String cmd = new String(buff, StandardCharsets.UTF_8);
 
                             String resp = processCommand(cmd);
-                            outputStream.write(resp.getBytes());
+                            String data = "success" + resp;
+                            outputStream.write(data.getBytes());
 
                             if (!resp.equals("OK")) {
-                                if(!isCommunicationFinished) isFirstCommunicationFinished = true;
-                                else isFirstCommunicationFinished = false;
-                                isCommunicationFinished = true;
-                                if(isFirstCommunicationFinished) {
+                                if (communicationState == 0) communicationState = 1;
+                                else if (communicationState == 1 ) communicationState = 2;
+                                if(communicationState == 1) {
                                     // 引数1：自身のActivity、引数2:移動先のActivity名
                                     Intent intent = new Intent(MatchingHostActivity.this, ResultActivity.class);
                                     intent.putExtra("matchingType", matchingType);
