@@ -1,3 +1,3 @@
-[submodule "modules/volley"]
-	path = modules/volley
-	url = https://android.googlesource.com/platform/frameworks/volley
+[submodule "volley_forNullSing"]
+	path = volley_forNullSing
+	url = https://github.com/Kenta-Yamasawa/Volley_forNullSing
