@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class MatchingHostActivity extends Activity {
 
-    String matchingType;
+    static String matchingType;
 
     static final String TAG = "BTTest1S";
 
@@ -74,7 +74,6 @@ public class MatchingHostActivity extends Activity {
         matchingType = intent.getStringExtra("matchingType");
         TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
         textView.setText(matchingType);
-        intent.putExtra("matchingType", matchingType);
 
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);

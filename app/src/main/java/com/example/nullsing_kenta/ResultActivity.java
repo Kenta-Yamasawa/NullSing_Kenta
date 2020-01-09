@@ -21,8 +21,8 @@ import android.util.Log;
 
 public class ResultActivity extends Activity {
 
-    static String yourDbDataString;
-    static String [] yourDbData;
+    String yourDbDataString;
+    String [] yourDbData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,9 @@ public class ResultActivity extends Activity {
         yourDbDataString = this.getIntent().getStringExtra("yourDbDataString");
         Log.d("yourDbData", "" + yourDbDataString);
         yourDbData = yourDbDataString.split("\\|");
+        for(int i= 0; i < yourDbData.length; i++) {
+            Log.d("yourDbData", "yourDbDataString[" + i + "] :" + yourDbDataString);
+        }
 
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
@@ -84,15 +87,8 @@ public class ResultActivity extends Activity {
 
         // 下はテスト用にデータを手動でリストに追加しています。消してください。
 
-        int yourDbDataLength;
-        if(yourDbData.length != 0) {
-            yourDbDataLength = yourDbData.length - 1;
-        } else {
-            yourDbDataLength = 0;
-        }
         String [] yourDbDataElements;
-
-        for(int i = 0; i < yourDbDataLength; i++) {
+        for(int i = 0; i < yourDbData.length; i++) {
             Log.d("ResultActivity","yourDbData[" + i + "] : " + yourDbData[i]);
             yourDbDataElements = yourDbData[i].split(",");
             yourTitleList.add(yourDbDataElements[0]);
