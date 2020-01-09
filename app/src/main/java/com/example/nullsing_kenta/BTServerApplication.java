@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class BTServerApplication extends Application {
 
-    private String tempValue = "25";
+    private String tempValue = "no Database Data";
 
     public synchronized String getTempValue(){
         return tempValue;

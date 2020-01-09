@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class MatchingHostActivity extends Activity {
 
@@ -32,17 +35,36 @@ public class MatchingHostActivity extends Activity {
     EditText tempEditText;
     BTServerThread btServerThread;
 
-    boolean isCommunicationFinished;
-    boolean isFirstCommunicationFinished;
+    static int communicationState;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        isCommunicationFinished = false;
-        isFirstCommunicationFinished = false;
+        communicationState = 0;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
+
+        MyOpenHelper helper = new MyOpenHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String dbData = "";
+
+        Cursor c = db.query("MySing", new String[]{"title", "singer", "genre"}, null,
+                null, null, null, null);
+
+        boolean mov = c.moveToFirst();
+        while (mov) {
+            dbData = dbData + c.getString(0) + "/" + c.getString(1);
+            dbData = dbData + c.getString(1);
+            dbData = dbData + c.getString(2);
+
+            mov = c.moveToNext();
+        }
+        c.close();
+        db.close();
+
+        Log.d("dbData", dbData);
 
         Intent intent = this.getIntent();
         matchingType = intent.getStringExtra("matchingType");
@@ -123,7 +145,7 @@ public class MatchingHostActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64];
+            byte[] incomingBuff = new byte[64000];
 
             try {
                 while (true) {
@@ -161,10 +183,9 @@ public class MatchingHostActivity extends Activity {
                             outputStream.write(resp.getBytes());
 
                             if (!resp.equals("OK")) {
-                                if(!isCommunicationFinished) isFirstCommunicationFinished = true;
-                                else isFirstCommunicationFinished = false;
-                                isCommunicationFinished = true;
-                                if(isFirstCommunicationFinished) {
+                                if(communicationState == 0) communicationState = 1;
+                                else if (communicationState == 1) communicationState = 2;
+                                if(communicationState == 1) {
                                     // 引数1：自身のActivity、引数2:移動先のActivity名
                                     Intent intent = new Intent(MatchingHostActivity.this, ResultActivity.class);
                                     intent.putExtra("matchingType", matchingType);
