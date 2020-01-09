@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +26,7 @@ import java.util.Set;
 public class MatchingClientActivity extends Activity {
 
     String matchingType;
+    String myDbData;
 
     static final String TAG = "BTTEST1";
     BluetoothAdapter bluetoothAdapter;
@@ -61,6 +64,27 @@ public class MatchingClientActivity extends Activity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_client);
+
+        //DBのStringデータを作成
+        myDbData = "";
+        MyOpenHelper helper = new MyOpenHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        Cursor c = db.query("MySing", new String[]{"title", "singer", "genre"}, null,
+                null, null, null, null);
+
+        boolean mov = c.moveToFirst();
+        while (mov) {
+            myDbData = myDbData + c.getString(0) + "/" + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(2) + "|";
+
+            mov = c.moveToNext();
+        }
+        c.close();
+        db.close();
+
+        Log.d("dbData", myDbData);
 
         Intent intent = this.getIntent();
         matchingType = intent.getStringExtra("matchingType");
@@ -126,7 +150,7 @@ public class MatchingClientActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64];
+            byte[] incomingBuff = new byte[64000];
 
             BluetoothDevice bluetoothDevice = null;
             Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
@@ -171,13 +195,26 @@ public class MatchingClientActivity extends Activity {
                             }
 
                             // Send Command
-                            String command = "GET:TEMP";
+                            String command = "DB:SEND" + myDbData;
                             outputStrem.write(command.getBytes());
                             // Read Response
                             int incomingBytes = inputStream.read(incomingBuff);
                             byte[] buff = new byte[incomingBytes];
                             System.arraycopy(incomingBuff, 0, buff, 0, incomingBytes);
                             String s = new String(buff, StandardCharsets.UTF_8);
+
+                            //activity遷移
+                            String successTag = "success";
+                            if(s.startsWith(successTag)) {
+                                String yourDbDataString = s.substring(successTag.length());
+                                Log.d("MCA yourDbData:", yourDbDataString);
+                                // 引数1：自身のActivity、引数2:移動先のActivity名
+                                Intent intent = new Intent(MatchingClientActivity.this, ResultActivity.class);
+                                intent.putExtra("matchingType", matchingType);
+                                intent.putExtra("yourDbDataString", yourDbDataString);
+                                // Activityの移動
+                                startActivity(intent);
+                            }
 
                             // Show Result to UI
                             handler.obtainMessage(

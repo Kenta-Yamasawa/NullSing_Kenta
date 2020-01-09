@@ -36,6 +36,7 @@ public class MatchingHostActivity extends Activity {
     BTServerThread btServerThread;
 
     static int communicationState;
+    String yourDbDataString = "no DB Data";
 
 
     @Override
@@ -46,25 +47,28 @@ public class MatchingHostActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
 
+        //DBのStringデータを作成
         MyOpenHelper helper = new MyOpenHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
-        String dbData = "";
+        String myDbData = "";
 
         Cursor c = db.query("MySing", new String[]{"title", "singer", "genre"}, null,
                 null, null, null, null);
 
         boolean mov = c.moveToFirst();
         while (mov) {
-            dbData = dbData + c.getString(0) + "/" + c.getString(1);
-            dbData = dbData + c.getString(1);
-            dbData = dbData + c.getString(2);
+            myDbData = myDbData + c.getString(0) + "/" + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(2) + "|";
 
             mov = c.moveToNext();
         }
         c.close();
         db.close();
 
-        Log.d("dbData", dbData);
+        Log.d("dbData", myDbData);
+
+        ((BTServerApplication) MatchingHostActivity.this.getApplication()).setTempValue(myDbData);
 
         Intent intent = this.getIntent();
         matchingType = intent.getStringExtra("matchingType");
@@ -85,6 +89,7 @@ public class MatchingHostActivity extends Activity {
         menu_addlist.setOnClickListener(new MatchingHostActivity.MenuAddListOnClickListener());
 
         tempEditText = (EditText) findViewById(R.id.tempEditText);
+        tempEditText.setText(myDbData);
         tempEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -182,6 +187,7 @@ public class MatchingHostActivity extends Activity {
                             String resp = processCommand(cmd);
                             outputStream.write(resp.getBytes());
 
+
                             if (!resp.equals("OK")) {
                                 if(communicationState == 0) communicationState = 1;
                                 else if (communicationState == 1) communicationState = 2;
@@ -189,6 +195,7 @@ public class MatchingHostActivity extends Activity {
                                     // 引数1：自身のActivity、引数2:移動先のActivity名
                                     Intent intent = new Intent(MatchingHostActivity.this, ResultActivity.class);
                                     intent.putExtra("matchingType", matchingType);
+                                    intent.putExtra("yourDbDataString", yourDbDataString);
                                     // Activityの移動
                                     startActivity(intent);
                                 }
@@ -234,9 +241,11 @@ public class MatchingHostActivity extends Activity {
 
             try {
 
-                if (cmd.equals("GET:TEMP")) {
+                if (cmd.startsWith("DB:SEND")) {
+                    yourDbDataString = cmd.substring(7);
                     String s = ((BTServerApplication) MatchingHostActivity.this.getApplication()).getTempValue();
-                    resp = (s == null) ? "n/a" : s;
+                    //resp = (s == null) ? "n/a" : s;
+                    resp = "success" + s;
                 } else {
                     Log.d(TAG, "Unknown Command");
                 }

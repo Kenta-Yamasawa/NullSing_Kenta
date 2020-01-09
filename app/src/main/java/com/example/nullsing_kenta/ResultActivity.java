@@ -20,6 +20,10 @@ import java.util.LinkedHashSet;
 import android.util.Log;
 
 public class ResultActivity extends Activity {
+
+    static String yourDbDataString;
+    static String [] yourDbData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,10 @@ public class ResultActivity extends Activity {
 
         MyOpenHelper helper = new MyOpenHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
+
+        yourDbDataString = this.getIntent().getStringExtra("yourDbDataString");
+        Log.d("yourDbData", "" + yourDbDataString);
+        yourDbData = yourDbDataString.split("\\|");
 
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
@@ -75,6 +83,24 @@ public class ResultActivity extends Activity {
         //                  上でyourTitleList, yourArtistList, yourGenreLIstにaddしてるので参考にしてください。
 
         // 下はテスト用にデータを手動でリストに追加しています。消してください。
+
+        int yourDbDataLength;
+        if(yourDbData.length != 0) {
+            yourDbDataLength = yourDbData.length - 1;
+        } else {
+            yourDbDataLength = 0;
+        }
+        String [] yourDbDataElements;
+
+        for(int i = 0; i < yourDbDataLength; i++) {
+            Log.d("ResultActivity","yourDbData[" + i + "] : " + yourDbData[i]);
+            yourDbDataElements = yourDbData[i].split(",");
+            yourTitleList.add(yourDbDataElements[0]);
+            yourArtistList.add(yourDbDataElements[1]);
+            yourGenreList.add(yourDbDataElements[2]);
+        }
+
+        /*
         yourTitleList.add("title1/artist1");
         yourArtistList.add("artist1");
         yourGenreList.add("雅楽");
@@ -93,7 +119,7 @@ public class ResultActivity extends Activity {
 
         yourTitleList.add("title1/artist1");
         yourArtistList.add("back number");
-        yourGenreList.add("ジャンル例");
+        yourGenreList.add("ジャンル例");*/
 
         // -ここまで-
 
