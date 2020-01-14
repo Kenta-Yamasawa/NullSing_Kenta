@@ -37,9 +37,10 @@ public class MatchingTypeSelectActivity extends Activity {
         menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MatchingTypeSelectActivity.MenuAddListOnClickListener());
 
-        LinearLayout menu_matching = (LinearLayout) findViewById(R.id.menu_matching_l);
-        menu_matching.setClickable(true);
-        menu_matching.setOnClickListener(new MatchingTypeSelectActivity.MenuMathcingOnClickListener());
+        //これ自身
+//        LinearLayout menu_matching = (LinearLayout) findViewById(R.id.menu_matching_l);
+//        menu_matching.setClickable(true);
+//        menu_matching.setOnClickListener(new MatchingTypeSelectActivity.MenuMathcingOnClickListener());
 
     }
 
@@ -104,16 +105,6 @@ public class MatchingTypeSelectActivity extends Activity {
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
             Intent intent = new Intent(MatchingTypeSelectActivity.this, AddListActivity.class);
-            // Activityの移動
-            startActivity(intent);
-        }
-    }
-
-    private class MenuMathcingOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingTypeSelectActivity.this, MathcingActivity.class);
             // Activityの移動
             startActivity(intent);
         }
