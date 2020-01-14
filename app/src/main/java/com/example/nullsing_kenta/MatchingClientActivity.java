@@ -86,7 +86,7 @@ public class MatchingClientActivity extends Activity {
 
         boolean mov = c.moveToFirst();
         while (mov) {
-            myDbData = myDbData + c.getString(0) + "/" + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(0) + ",";
             myDbData = myDbData + c.getString(1) + ",";
             myDbData = myDbData + c.getString(2) + "|";
 
@@ -160,7 +160,7 @@ public class MatchingClientActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64000];
+            byte[] incomingBuff = new byte[6400000];
 
             BluetoothDevice bluetoothDevice = null;
             Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
@@ -209,6 +209,7 @@ public class MatchingClientActivity extends Activity {
                             outputStrem.write(command.getBytes());
                             // Read Response
                             int incomingBytes = inputStream.read(incomingBuff);
+                            Log.d("MCA", "incomingBytes : " + incomingBytes);
                             byte[] buff = new byte[incomingBytes];
                             System.arraycopy(incomingBuff, 0, buff, 0, incomingBytes);
                             String s = new String(buff, StandardCharsets.UTF_8);

@@ -72,7 +72,7 @@ public class MatchingHostActivity extends Activity {
 
         boolean mov = c.moveToFirst();
         while (mov) {
-            myDbData = myDbData + c.getString(0) + "/" + c.getString(1) + ",";
+            myDbData = myDbData + c.getString(0) + ",";
             myDbData = myDbData + c.getString(1) + ",";
             myDbData = myDbData + c.getString(2) + "|";
 
@@ -164,7 +164,7 @@ public class MatchingHostActivity extends Activity {
 
         public void run() {
 
-            byte[] incomingBuff = new byte[64000];
+            byte[] incomingBuff = new byte[6400000];
 
             try {
                 while (true) {

@@ -91,7 +91,7 @@ public class ResultActivity extends Activity {
         for(int i = 0; i < yourDbData.length; i++) {
             Log.d("ResultActivity","yourDbData[" + i + "] : " + yourDbData[i]);
             yourDbDataElements = yourDbData[i].split(",");
-            yourTitleList.add(yourDbDataElements[0]);
+            yourTitleList.add(yourDbDataElements[0] + "/" + yourDbDataElements[1]);
             yourArtistList.add(yourDbDataElements[1]);
             yourGenreList.add(yourDbDataElements[2]);
         }
