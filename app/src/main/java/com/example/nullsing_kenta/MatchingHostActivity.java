@@ -38,11 +38,15 @@ public class MatchingHostActivity extends Activity {
     static int communicationState;
     String yourDbDataString = "no DB Data";
 
+    boolean isActivityActive = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         communicationState = 0;
+        isActivityActive = true;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
@@ -208,6 +212,8 @@ public class MatchingHostActivity extends Activity {
                                     intent.putExtra("yourDbDataString", yourDbDataString);
                                     // Activityの移動
                                     startActivity(intent);
+                                    isActivityActive = false;
+                                    break;
                                 }
                             }
                         }
@@ -221,6 +227,10 @@ public class MatchingHostActivity extends Activity {
                             bluetoothSocket = null;
                         } catch (IOException e) {
                         }
+                    }
+
+                    if (!isActivityActive) {
+                        break;
                     }
 
                     // Bluetooth connection broke. Start Over in a few seconds.
