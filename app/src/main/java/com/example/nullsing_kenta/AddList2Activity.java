@@ -39,8 +39,6 @@ public class AddList2Activity extends Activity {
 
     TextView searchInfo;
 
-    CheckBox chkbox;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +46,6 @@ public class AddList2Activity extends Activity {
 
         searchInfo = (TextView)findViewById(R.id.searchInfo);
 
-        chkbox = new CheckBox(this);
 
         json_songs = new ArrayList<>();
 
@@ -126,12 +123,13 @@ public class AddList2Activity extends Activity {
                             }
                             searchInfo.setText(searchInfoText);
                             for (int i = 0; i < json_songs.size(); i++) {
+                                CheckBox chkbox = new CheckBox(AddList2Activity.this);
                                 String chkboxText = json_songs.get(i).get_title() + "/" + json_songs.get(i).get_artist();
                                 chkbox.setText(chkboxText);
                                 chkbox.setId(i);
                                 chkbox.setTextColor(Color.BLACK);
                                 chkbox.setTextSize(50);
-                                songsList.addView(chkbox, new LinearLayout.LayoutParams(
+                                songsList.addView(chkbox, i, new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT));
                             }
