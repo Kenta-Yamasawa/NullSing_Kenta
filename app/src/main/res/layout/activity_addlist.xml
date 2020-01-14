@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="20dp"
-                android:text="作曲者名" />
+                android:text="アーティスト名" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="20dp"
-                android:text="ジャンル" />
+                android:text="ジャンル名" />
 
             <EditText
                 android:layout_width="match_parent"
