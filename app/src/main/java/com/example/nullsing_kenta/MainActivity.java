@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        TextView menu_addlist2 = (TextView) findViewById(R.id.menu_addList2);
+        LinearLayout menu_addlist2 = (LinearLayout) findViewById(R.id.menu_addList2);
         menu_addlist2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        TextView menu_mathcing2 = (TextView) findViewById(R.id.menu_matching2);
+        LinearLayout menu_mathcing2 = (LinearLayout) findViewById(R.id.menu_matching2);
         menu_mathcing2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

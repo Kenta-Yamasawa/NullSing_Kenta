@@ -31,8 +31,8 @@ public class MatchingClientActivity extends Activity {
     static final String TAG = "BTTEST1";
     BluetoothAdapter bluetoothAdapter;
 
-    TextView btStatusTextView;
-    TextView tempTextView;
+//    TextView btStatusTextView;
+//    TextView tempTextView;
 
     BTClientThread btClientThread;
 
@@ -46,13 +46,13 @@ public class MatchingClientActivity extends Activity {
                 case Constants.MESSAGE_BT:
                     s = (String) msg.obj;
                     if(s != null){
-                        btStatusTextView.setText(s);
+//                        btStatusTextView.setText(s);
                     }
                     break;
                 case Constants.MESSAGE_TEMP:
                     s = (String) msg.obj;
                     if(s != null){
-                        tempTextView.setText(s);
+//                        tempTextView.setText(s);
                     }
                     break;
             }
@@ -64,6 +64,17 @@ public class MatchingClientActivity extends Activity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_client);
+
+        Intent intent = this.getIntent();
+        matchingType = intent.getStringExtra("matchingType");
+        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
+        if(matchingType.equals("title")) {
+            textView.setText("曲名でマッチングします");
+        } else if (matchingType.equals("artist")){
+            textView.setText("アーティスト名でマッチングします");
+        } else if (matchingType.equals("genre")){
+            textView.setText("ジャンル名でマッチングします");
+        }
 
         //DBのStringデータを作成
         myDbData = "";
@@ -86,11 +97,6 @@ public class MatchingClientActivity extends Activity {
 
         Log.d("dbData", myDbData);
 
-        Intent intent = this.getIntent();
-        matchingType = intent.getStringExtra("matchingType");
-        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
-        textView.setText(matchingType);
-
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
         menu_home.setOnClickListener(new MatchingClientActivity.MenuHomeOnClickListener());
@@ -103,14 +109,18 @@ public class MatchingClientActivity extends Activity {
         menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MatchingClientActivity.MenuAddListOnClickListener());
 
+        LinearLayout menu_matching = (LinearLayout) findViewById(R.id.menu_matching_l);
+        menu_matching.setClickable(true);
+        menu_matching.setOnClickListener(new MatchingClientActivity.MenuMathcingOnClickListener());
+
         // Find Views
-        btStatusTextView = (TextView) findViewById(R.id.btStatusTextView);
-        tempTextView = (TextView) findViewById(R.id.tempTextView);
-        tempTextView.setOnClickListener(new MatchingClientActivity.MatchingPasswordOnClickListener());
+//        btStatusTextView = (TextView) findViewById(R.id.btStatusTextView);
+//        tempTextView = (TextView) findViewById(R.id.tempTextView);
+//        tempTextView.setOnClickListener(new MatchingClientActivity.MatchingPasswordOnClickListener());
 
         if(savedInstanceState != null){
-            String temp = savedInstanceState.getString(Constants.STATE_TEMP);
-            tempTextView.setText(temp);
+//            String temp = savedInstanceState.getString(Constants.STATE_TEMP);
+//            tempTextView.setText(temp);
         }
 
         // Initialize Bluetooth
@@ -139,7 +149,7 @@ public class MatchingClientActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(Constants.STATE_TEMP, tempTextView.getText().toString());
+//        outState.putString(Constants.STATE_TEMP, tempTextView.getText().toString());
     }
 
     public class BTClientThread extends Thread {
@@ -296,7 +306,7 @@ public class MatchingClientActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingClientActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MatchingClientActivity.this, MatchingTypeSelectActivity.class);
             // Activityの移動
             startActivity(intent);
         }

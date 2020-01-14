@@ -47,6 +47,17 @@ public class MatchingHostActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_host); // Find Views
 
+        Intent intent = this.getIntent();
+        matchingType = intent.getStringExtra("matchingType");
+        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
+        if(matchingType.equals("title")) {
+            textView.setText("曲名でマッチングします");
+        } else if (matchingType.equals("artist")){
+            textView.setText("アーティスト名でマッチングします");
+        } else if (matchingType.equals("genre")){
+            textView.setText("ジャンル名でマッチングします");
+        }
+
         //DBのStringデータを作成
         MyOpenHelper helper = new MyOpenHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -70,10 +81,6 @@ public class MatchingHostActivity extends Activity {
 
         ((BTServerApplication) MatchingHostActivity.this.getApplication()).setTempValue(myDbData);
 
-        Intent intent = this.getIntent();
-        matchingType = intent.getStringExtra("matchingType");
-        TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
-        textView.setText(matchingType);
 
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
@@ -87,23 +94,27 @@ public class MatchingHostActivity extends Activity {
         menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MatchingHostActivity.MenuAddListOnClickListener());
 
-        tempEditText = (EditText) findViewById(R.id.tempEditText);
-        tempEditText.setText(myDbData);
-        tempEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+        LinearLayout menu_matching = (LinearLayout) findViewById(R.id.menu_matching_l);
+        menu_matching.setClickable(true);
+        menu_matching.setOnClickListener(new MatchingHostActivity.MenuMathcingOnClickListener());
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String s = editable.toString();
-                ((BTServerApplication) MatchingHostActivity.this.getApplication()).setTempValue(s);
-            }
-        });
+//        tempEditText = (EditText) findViewById(R.id.tempEditText);
+//        tempEditText.setText(myDbData);
+//        tempEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                String s = editable.toString();
+//                ((BTServerApplication) MatchingHostActivity.this.getApplication()).setTempValue(s);
+//            }
+//        });
         if (savedInstanceState != null) {
             tempEditText.setText(savedInstanceState.getString(Constants.STATE_TEMP));
         }
@@ -137,7 +148,7 @@ public class MatchingHostActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(Constants.STATE_TEMP, tempEditText.getText().toString());
+        //outState.putString(Constants.STATE_TEMP, tempEditText.getText().toString());
     }
 
     public class BTServerThread extends Thread {
@@ -291,7 +302,7 @@ public class MatchingHostActivity extends Activity {
         @Override
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
-            Intent intent = new Intent(MatchingHostActivity.this, MathcingActivity.class);
+            Intent intent = new Intent(MatchingHostActivity.this, MatchingTypeSelectActivity.class);
             // Activityの移動
             startActivity(intent);
         }

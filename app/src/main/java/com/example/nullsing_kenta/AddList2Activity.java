@@ -3,6 +3,7 @@ package com.example.nullsing_kenta;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -35,10 +37,18 @@ public class AddList2Activity extends Activity {
     RequestQueue requestQueue;
     ArrayList<JSONsong> json_songs;
 
+    TextView searchInfo;
+
+    CheckBox chkbox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addlist2);
+
+        searchInfo = (TextView)findViewById(R.id.searchInfo);
+
+        chkbox = new CheckBox(this);
 
         json_songs = new ArrayList<>();
 
@@ -106,10 +116,21 @@ public class AddList2Activity extends Activity {
                             }
 
                             LinearLayout songsList = (LinearLayout) findViewById(R.id.songs);
+                            String searchInfoText;
+                            if(json_songs.size() > 0) {
+                                searchInfoText = json_songs.size() + "件みつかりました";
+                                Button btn = findViewById(R.id.addButton);
+                                btn.setText("追加");
+                            } else {
+                                searchInfoText = "みつかりませんでした";
+                            }
+                            searchInfo.setText(searchInfoText);
                             for (int i = 0; i < json_songs.size(); i++) {
-                                CheckBox chkbox = new CheckBox(getApplicationContext());
-                                chkbox.setText(json_songs.get(i).get_title() + "/" + json_songs.get(i).get_artist());
+                                String chkboxText = json_songs.get(i).get_title() + "/" + json_songs.get(i).get_artist();
+                                chkbox.setText(chkboxText);
                                 chkbox.setId(i);
+                                chkbox.setTextColor(Color.BLACK);
+                                chkbox.setTextSize(50);
                                 songsList.addView(chkbox, new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT));

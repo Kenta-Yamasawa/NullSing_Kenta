@@ -5,7 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -88,12 +90,25 @@ public class AddListActivity extends Activity {
                 String str_singer = sb.toString();
                 sb = (SpannableStringBuilder)genreText.getText();
                 String str_genre = sb.toString();
+                if (str_title.equals("") && str_singer.equals("") && str_genre.equals("")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddListActivity.this);
+                    builder.setMessage("どれか1つは検索条件を入力してください。")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // ボタンをクリックしたときの動作
+                                }
+                            });
+                    builder.show();
 
-                Intent intent = new Intent(AddListActivity.this, AddList2Activity.class);
-                intent.putExtra("title", str_title);
-                intent.putExtra("artist", str_singer);
-                intent.putExtra("genre", str_genre);
-                startActivity(intent);
+                } else {
+                    Intent intent = new Intent(AddListActivity.this, AddList2Activity.class);
+                    intent.putExtra("title", str_title);
+                    intent.putExtra("artist", str_singer);
+                    intent.putExtra("genre", str_genre);
+                    startActivity(intent);
+                }
+
+
             }
         });
     }

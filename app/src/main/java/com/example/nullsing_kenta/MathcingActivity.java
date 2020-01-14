@@ -36,6 +36,10 @@ public class MathcingActivity extends Activity {
         menu_addlist.setClickable(true);
         menu_addlist.setOnClickListener(new MathcingActivity.MenuAddListOnClickListener());
 
+        LinearLayout menu_matching = (LinearLayout) findViewById(R.id.menu_matching_l);
+        menu_matching.setClickable(true);
+        menu_matching.setOnClickListener(new MathcingActivity.MenuMathcingOnClickListener());
+
         TextView button_matching_host = (TextView)findViewById(R.id.button_matching_host);
         button_matching_host.setOnClickListener(new MathcingActivity.ButtonMatchingHostOnClickListener());
 
@@ -45,7 +49,13 @@ public class MathcingActivity extends Activity {
         Intent intent = this.getIntent();
         matchingType = intent.getStringExtra("matchingType");
         TextView textView = (TextView)this.findViewById(R.id.text_matching_type);
-        textView.setText(matchingType);
+        if(matchingType.equals("title")) {
+            textView.setText("曲名でマッチングします");
+        } else if (matchingType.equals("artist")){
+            textView.setText("アーティスト名でマッチングします");
+        } else if (matchingType.equals("genre")){
+            textView.setText("ジャンル名でマッチングします");
+        }
 
     }
 
@@ -74,6 +84,16 @@ public class MathcingActivity extends Activity {
         public void onClick(View v) {
             // 引数1：自身のActivity、引数2:移動先のActivity名
             Intent intent = new Intent(MathcingActivity.this, AddListActivity.class);
+            // Activityの移動
+            startActivity(intent);
+        }
+    }
+
+    private class MenuMathcingOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // 引数1：自身のActivity、引数2:移動先のActivity名
+            Intent intent = new Intent(MathcingActivity.this, MatchingTypeSelectActivity.class);
             // Activityの移動
             startActivity(intent);
         }

@@ -49,7 +49,7 @@ public class MyListActivity extends Activity {
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setPadding(0, 0, 0, 5);
             textView.setTextColor(Color.BLACK);
-            textView.setTextSize(15);
+            textView.setTextSize(20);
             textView.setText(String.format("%s / %s (%s)", c.getString(0), c.getString(1), c.getString(2)));
             mov = c.moveToNext();
             trigger.addView(textView);
