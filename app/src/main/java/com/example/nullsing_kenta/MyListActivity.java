@@ -50,6 +50,7 @@ public class MyListActivity extends Activity {
             textView.setPadding(0, 0, 0, 5);
             textView.setTextColor(Color.BLACK);
             textView.setTextSize(20);
+            textView.setBackgroundColor(Color.argb(0,127,127,127));
             textView.setText(String.format("%s / %s (%s)", c.getString(0), c.getString(1), c.getString(2)));
             mov = c.moveToNext();
             trigger.addView(textView);

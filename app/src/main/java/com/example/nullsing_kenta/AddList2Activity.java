@@ -128,7 +128,7 @@ public class AddList2Activity extends Activity {
                                 chkbox.setText(chkboxText);
                                 chkbox.setId(i);
                                 chkbox.setTextColor(Color.BLACK);
-                                chkbox.setTextSize(50);
+                                chkbox.setTextSize(40);
                                 songsList.addView(chkbox, i, new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT));

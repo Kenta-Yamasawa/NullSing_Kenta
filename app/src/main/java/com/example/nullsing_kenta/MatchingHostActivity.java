@@ -70,12 +70,16 @@ public class MatchingHostActivity extends Activity {
         Cursor c = db.query("MySing", new String[]{"title", "singer", "genre"}, null,
                 null, null, null, null);
 
+        String tmpMyDbData = "";
         boolean mov = c.moveToFirst();
         while (mov) {
-            myDbData = myDbData + c.getString(0) + ",";
-            myDbData = myDbData + c.getString(1) + ",";
-            myDbData = myDbData + c.getString(2) + "|";
-
+            tmpMyDbData = tmpMyDbData + c.getString(0) + ",";
+            tmpMyDbData = tmpMyDbData + c.getString(1) + ",";
+            tmpMyDbData = tmpMyDbData + c.getString(2) + "|";
+            Log.d("MHA:" ,"tmpMyDbData : " + tmpMyDbData.getBytes().length + " byte");
+            if (tmpMyDbData.getBytes().length < 900) {
+                myDbData = tmpMyDbData;
+            }
             mov = c.moveToNext();
         }
         c.close();

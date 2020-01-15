@@ -29,16 +29,6 @@ public class ResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        MyOpenHelper helper = new MyOpenHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        yourDbDataString = this.getIntent().getStringExtra("yourDbDataString");
-        Log.d("yourDbData", "" + yourDbDataString);
-        yourDbData = yourDbDataString.split("\\|");
-        for(int i= 0; i < yourDbData.length; i++) {
-            Log.d("yourDbData", "yourDbDataString[" + i + "] :" + yourDbDataString);
-        }
-
         LinearLayout menu_home = (LinearLayout) findViewById(R.id.menu_home_l);
         menu_home.setClickable(true);
         menu_home.setOnClickListener(new ResultActivity.MenuHomeOnClickListener());
@@ -54,6 +44,22 @@ public class ResultActivity extends Activity {
         LinearLayout menu_mathcing = (LinearLayout) findViewById(R.id.menu_matching_l);
         menu_mathcing.setClickable(true);
         menu_mathcing.setOnClickListener(new ResultActivity.MenuMatchingOnClickListener());
+
+        //--
+
+        MyOpenHelper helper = new MyOpenHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        yourDbDataString = this.getIntent().getStringExtra("yourDbDataString");
+        Log.d("yourDbData", "string : " + yourDbDataString);
+
+        if(yourDbDataString.length() != 0) {
+            yourDbData = yourDbDataString.split("\\|");
+            Log.d("yourDbData", "yourDbData.length : " + yourDbData.length);
+            for (int i = 0; i < yourDbData.length; i++) {
+                Log.d("yourDbData", "yourDbData[" + i + "] :" + yourDbDataString);
+            }
+        }
 
         Cursor c = db.query("MySing", new String[]{"title", "singer", "genre"}, null,
                 null, null, null, null);
@@ -88,12 +94,14 @@ public class ResultActivity extends Activity {
         // 下はテスト用にデータを手動でリストに追加しています。消してください。
 
         String [] yourDbDataElements;
-        for(int i = 0; i < yourDbData.length; i++) {
-            Log.d("ResultActivity","yourDbData[" + i + "] : " + yourDbData[i]);
-            yourDbDataElements = yourDbData[i].split(",");
-            yourTitleList.add(yourDbDataElements[0] + "/" + yourDbDataElements[1]);
-            yourArtistList.add(yourDbDataElements[1]);
-            yourGenreList.add(yourDbDataElements[2]);
+        if (yourDbDataString.length() != 0) {
+            for (int i = 0; i < yourDbData.length; i++) {
+                Log.d("ResultActivity", "yourDbData[" + i + "] : " + yourDbData[i]);
+                yourDbDataElements = yourDbData[i].split(",");
+                yourTitleList.add(yourDbDataElements[0] + "/" + yourDbDataElements[1]);
+                yourArtistList.add(yourDbDataElements[1]);
+                yourGenreList.add(yourDbDataElements[2]);
+            }
         }
 
         /*
@@ -128,27 +136,43 @@ public class ResultActivity extends Activity {
         Intent intent = this.getIntent();
         String matchingType = intent.getStringExtra("matchingType");
         TextView text_result_title = (TextView) findViewById(R.id.text_result_title);
-        if (matchingType.equals("title")) {
-            text_result_title.setText("二人が知っている曲はこちらです");
 
+        if (matchingType.equals("title")) {
             String[] myTitleArray = myHashedTitleList.toArray(new String[myHashedTitleList.size()]);
             String[] yourTitleArray = yourHashedTitleList.toArray(new String[yourHashedTitleList.size()]);
 
             result = set_function.intersect_set(myTitleArray, yourTitleArray);
-        } else if (matchingType.equals("artist")) {
-            text_result_title.setText("二人が知っているアーティストはこちらです");
 
+            if(result.length != 0) {
+                text_result_title.setText("二人が知っている曲はこちらです");
+            } else {
+                text_result_title.setText("二人が知っている曲はありませんでした");
+            }
+
+        } else if (matchingType.equals("artist")) {
             String[] myArtistArray = myHashedArtistList.toArray(new String[myHashedArtistList.size()]);
             String[] yourArtistArray = yourHashedArtistList.toArray(new String[yourHashedArtistList.size()]);
 
             result = set_function.intersect_set(myArtistArray, yourArtistArray);
-        } else if (matchingType.equals("genre")) {
-            text_result_title.setText("二人が知っているジャンルはこちらです");
 
+            if(result.length != 0) {
+                text_result_title.setText("二人が知っているアーティストはこちらです");
+            } else {
+                text_result_title.setText("二人が知っているアーティストはありませんでした");
+            }
+
+        } else if (matchingType.equals("genre")) {
             String[] myGenreArray = myHashedGenreList.toArray(new String[myHashedGenreList.size()]);
             String[] yourGenreArray = yourHashedGenreList.toArray(new String[yourHashedGenreList.size()]);
 
             result = set_function.intersect_set(myGenreArray, yourGenreArray);
+
+            if(result.length != 0) {
+                text_result_title.setText("二人が知っているジャンルはこちらです");
+            } else {
+                text_result_title.setText("二人が知っているジャンルはありませんでした");
+            }
+
         }
 
         LinearLayout trigger = (LinearLayout) findViewById(R.id.trigger);
@@ -157,7 +181,8 @@ public class ResultActivity extends Activity {
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setPadding(0, 0, 0, 5);
             textView.setTextColor(Color.BLACK);
-            textView.setTextSize(15);
+            textView.setBackgroundColor(Color.argb(0,127,127,127));
+            textView.setTextSize(20);
             textView.setText(result[i]);
             trigger.addView(textView);
         }

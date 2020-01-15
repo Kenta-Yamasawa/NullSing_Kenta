@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MatchingClientActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#00FFFFFF"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -28,15 +30,46 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
+            android:background="#00FFFFFF"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_matching_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
-                android:text="マッチングタイプが選択されていません"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_matching_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#00FFFFFF"
+                    android:text="マッチングタイプが選択されていません"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#00FFFFFF"
+                    android:text="相手を待っています"
+                    android:textSize="20dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:layout_weight="4">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:rotation="-90"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/s"/>
+            </LinearLayout>
 
         </LinearLayout>
 

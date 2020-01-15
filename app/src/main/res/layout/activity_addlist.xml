@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".AddListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#00FFFFFF"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -28,13 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
+            android:background="#00FFFFFF"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="#ffffff"
+                android:background="#00FFFFFF"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="検索条件を入力して検索ボタンを押してください"
                 android:textColor="#000000"
@@ -44,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:background="#00FFFFFF"
                 android:text="曲名" />
 
             <EditText
@@ -59,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="20dp"
+                android:background="#00FFFFFF"
                 android:text="アーティスト名" />
 
             <EditText
@@ -74,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="20dp"
+                android:background="#00FFFFFF"
                 android:text="ジャンル名" />
 
             <EditText

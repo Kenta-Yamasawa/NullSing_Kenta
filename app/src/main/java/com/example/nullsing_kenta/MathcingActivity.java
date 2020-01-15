@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,10 +41,10 @@ public class MathcingActivity extends Activity {
         menu_matching.setClickable(true);
         menu_matching.setOnClickListener(new MathcingActivity.MenuMathcingOnClickListener());
 
-        TextView button_matching_host = (TextView)findViewById(R.id.button_matching_host);
+        ImageView button_matching_host = (ImageView)findViewById(R.id.button_matching_host);
         button_matching_host.setOnClickListener(new MathcingActivity.ButtonMatchingHostOnClickListener());
 
-        TextView button_matching_client = (TextView)findViewById(R.id.button_matching_client);
+        ImageView button_matching_client = (ImageView)findViewById(R.id.button_matching_client);
         button_matching_client.setOnClickListener(new MathcingActivity.ButtonMatchingClientOnClickListener());
 
         Intent intent = this.getIntent();
